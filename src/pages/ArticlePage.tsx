@@ -1,10 +1,9 @@
 import * as React from 'react';
-import {useParams} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import {Box, Container, Typography} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {getArticleById} from "../api/article";
 import {useQuery} from "../hooks/useQuery.ts";
-import {Link} from "react-router-dom";
 
 const ArticlePage = () => {
     const {id} = useParams()
