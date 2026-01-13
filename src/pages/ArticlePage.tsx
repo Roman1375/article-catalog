@@ -1,13 +1,21 @@
-import * as React from 'react';
 import {useParams, Link} from "react-router-dom";
 import {Box, Container, Typography} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {getArticleById} from "../api/article";
 import {useQuery} from "../hooks/useQuery.ts";
+import Loader from "../comonents/loader.tsx";
 
 const ArticlePage = () => {
     const {id} = useParams()
     const {data, error, isLoading} = useQuery(getArticleById.bind(null, Number(id)));
+
+    if (isLoading) {
+        return <Loader/>;
+    }
+
+    if (error) {
+        return <Typography textAlign="center" mt="50px">An error occurred while fetching the article.</Typography>;
+    }
 
     return (
         <>

@@ -7,8 +7,16 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="/articles/:id" element={<ArticlePage/>}/>
+                <Route path="/" element={
+                    <React.Fragment>
+                        <HomePage/>
+                    </React.Fragment>
+                }/>
+                <Route path="/articles/:id" element={
+                    <React.Fragment>
+                        <ArticlePage/>
+                    </React.Fragment>
+                }/>
             </Routes>
         </BrowserRouter>
     );

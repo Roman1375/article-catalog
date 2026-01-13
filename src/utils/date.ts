@@ -1,4 +1,4 @@
-export function formatDate(isoString) {
+export function formatDate(isoString: string) {
     const date = new Date(isoString)
 
     const day = date.getDate()
