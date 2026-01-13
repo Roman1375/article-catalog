@@ -1,0 +1,51 @@
+@use "index" as *;
+
+.article-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #EAEAEA;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
+  border-radius: 5px !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.1) !important;
+    border-color: transparent;
+
+    .MuiCardMedia-root {
+      transform: scale(1.1);
+    }
+
+    .read-more-link {
+      color: darken($accent-color, 35%);
+      svg {
+        transform: translateX(8px);
+      }
+    }
+  }
+
+  .MuiCardMedia-root {
+    transition: transform 0.5s ease;
+  }
+
+  .read-more-link {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    transition: all 0.2s ease;
+
+    svg {
+      transition: transform 0.2s ease;
+      margin-left: 5px;
+    }
+  }
+}
+
+.highlight {
+  background-color: $accent-color;
+}
