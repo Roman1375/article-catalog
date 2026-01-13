@@ -10,14 +10,16 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import {getAllArticles} from "../api/article";
 import Article from "../comonents/article.tsx";
+import {useFilteredArticles} from "../hooks/useFilteredArticles.ts";
 import {useQuery} from "../hooks/useQuery.ts";
 import type {ArticlesResponse} from "../types";
 import '../styles/home.css';
 
 const HomePage: React.FC = () => {
-    const {data, error, isLoading} = useQuery<ArticlesResponse>(getAllArticles);
+    const {data, isLoading} = useQuery<ArticlesResponse>(getAllArticles);
+    const [searchQuery, setSearchQuery] = React.useState<string>('');
 
-    const articles = data?.results;
+    const filteredArticles = useFilteredArticles(data?.results, searchQuery);
 
     return (
         <Container maxWidth="lg" sx={{py: "50px"}}>
@@ -26,6 +28,8 @@ const HomePage: React.FC = () => {
                     Filter by keywords
                 </Typography>
                 <TextField
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     fullWidth
                     placeholder="The most successful IT companies in 2020"
                     sx={{maxWidth: 600, mb: 5, boxShadow: '0px 8px 24px #0000000D'}}
@@ -38,14 +42,14 @@ const HomePage: React.FC = () => {
                     }}
                 />
                 <Typography sx={{fontWeight: '600', pb: 1, borderBottom: '1px solid #E0E0E0'}}>
-                    Results: {articles?.length}
+                    Results: {filteredArticles?.length}
                 </Typography>
             </Box>
 
             <Grid container spacing={5}>
-                {articles?.map((article) => (
+                {filteredArticles?.map((article) => (
                     <Grid size={{xs: 12, sm: 6, lg: 4}} key={article.id}>
-                        <Article {...article}/>
+                        <Article {...article} searchQuery={searchQuery}/>
                     </Grid>
                 ))}
             </Grid>

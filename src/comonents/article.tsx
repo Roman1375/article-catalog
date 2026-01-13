@@ -1,20 +1,27 @@
 import * as React from 'react';
+import {Link} from "react-router-dom";
 import {Box, Card, CardContent, CardMedia, Typography} from "@mui/material";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {formatDate} from "../utils/date.ts";
+import Highlighter from "./highlighter.tsx";
 import type {ArticleType} from "../types";
 
-const Article: React.FC<ArticleType> = (
+interface ArticleProps extends ArticleType {
+    searchQuery?: string;
+}
+
+const Article: React.FC<ArticleProps> = (
     {
         id,
         published_at,
         summary,
         image_url,
-        title
+        title,
+        searchQuery,
     }) => {
     return (
-        <Box component="a" href={`/articles/${id}`}>
+        <Link to={`/articles/${id}`}>
             <Card className="article-card" elevation={0}>
                 <CardMedia
                     component="img"
@@ -36,11 +43,11 @@ const Article: React.FC<ArticleType> = (
                     </Box>
 
                     <Typography variant="h5" sx={{mb: "20px"}}>
-                        {title}
+                        <Highlighter text={title} query={searchQuery ?? ""}/>
                     </Typography>
 
                     <Typography variant="body2" sx={{mb: "20px"}}>
-                        {summary.slice(0, 100)}...
+                        <Highlighter text={summary.slice(0, 100) + '...'} query={searchQuery ?? ""}/>
                     </Typography>
 
                     <Box className="read-more-link">
@@ -48,7 +55,7 @@ const Article: React.FC<ArticleType> = (
                     </Box>
                 </CardContent>
             </Card>
-        </Box>
+        </Link>
     );
 };
 
